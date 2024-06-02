@@ -49,6 +49,8 @@ services:
             JIBRI_PENDING_TIMEOUT: '90'
             JIBRI_STRIP_DOMAIN_JID: muc
             JIBRI_LOGS_DIR: /config/logs
+        networks:
+            meet.jitsi:
     $$cap_appname-prosody:
         image: jitsi/prosody:$$cap_tag_version
         restart: unless-stopped
@@ -98,6 +100,8 @@ services:
             JIBRI_PENDING_TIMEOUT: '90'
             JIBRI_STRIP_DOMAIN_JID: muc
             JIBRI_LOGS_DIR: /config/logs
+        networks:
+            meet.jitsi:
         caproverExtra:
             notExposeAsWebApp: 'true'
     $$cap_appname-jicofo:
@@ -147,6 +151,8 @@ services:
             JIBRI_LOGS_DIR: /config/logs
         depends_on:
             - $$cap_appname-prosody
+        networks:
+            meet.jitsi:
         caproverExtra:
             notExposeAsWebApp: 'true'
     $$cap_appname-jvb:
@@ -199,13 +205,15 @@ services:
             JIBRI_LOGS_DIR: /config/logs
         depends_on:
             - $$cap_appname-prosody
+        networks:
+            meet.jitsi:
         caproverExtra:
             notExposeAsWebApp: 'true'
 caproverOneClickApp:
     variables:
         - label: Docker tag version
           description: 'You can check the version in Docker Hub: https://hub.docker.com/r/jitsi/web/tags'
-          defaultValue: '4416'
+          defaultValue: 'stable'
           id: $$cap_tag_version
         - label: HTTP Port
           description: This is the HTTP port to access Jitsi
